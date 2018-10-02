@@ -1,0 +1,161 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="lrnapp-studio-dashboard-profile.html">
+<link rel="import" href="lrnapp-studio-dashboard-due.html">
+<link rel="import" href="lrnapp-studio-dashboard-feedback-wanted.html">
+<link rel="import" href="lrnapp-studio-dashboard-submissions.html">
+<link rel="import" href="lrnapp-studio-dashboard-comments.html">
+<link rel="import" href="lrnapp-studio-dashboard-discussions.html">
+<link rel="import" href="lrnapp-studio-dashboard-feedback.html">
+
+<!--
+`lrnapp-studio-dashboard`
+A LRN polymer app
+
+@demo ../../demo/index.html
+
+@microcopy - the mental model for this app
+ -
+ -
+ -
+
+-->
+
+<dom-module id="lrnapp-studio-dashboard">
+  <template>
+    <style>
+      :host {
+        display: block;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 100;
+        color: var(--simple-colors-foreground5, #666);
+        --lrnapp-studio-dashboard-color: var(--simple-colors-foreground5, #666);
+        --lrnapp-studio-dashboard-focus-color: var(--simple-colors-foreground1, #000);
+        --lrnapp-studio-dashboard-border: 1px solid var(--simple-colors-background3, #ddd);
+        --accent-card-heading: {
+          color: var(--simple-colors-foreground5, #666);
+          font-size: 125%;
+          font-weight: 100;
+        };
+        /*--lrnapp-studio-dashboard-link-divider: {
+          border-bottom: 1px solid var(--simple-colors-background3, #ddd);
+          display: block;
+        }
+        --lrnapp-studio-dashboard-link-detail: {
+          margin: 5px 0 0;
+          padding: 0;
+          font-size: 85%;
+          font-weight: 100;
+        };
+        --lrnapp-studio-dashboard-viewall: {
+          text-align: center;
+          padding: 0 10px 10px;
+          font-size: 90%;
+        };*/
+      }
+      :host:first-of-type {
+        --accent-card: {
+          margin-top: 0;
+        };
+      }
+      :host .section {
+        display: block;
+      }
+      @media screen and (min-width: 300px){
+        :host .centered {
+          width: 100%;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+      }
+      @media screen and (min-width: 600px){
+        :host .centered {
+          max-width: 800px;
+          display: grid;
+          grid-template-rows: 1fr;
+          align-items: start;
+          justify-items: stretch;
+	        grid-column-gap: 20px;	
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media screen and (min-width: 1000px){
+        :host .centered.grid {
+          max-width: 1200px;
+	        grid-column-gap: 40px;	
+          grid-template-columns: 2fr 1fr;
+        }
+        :host .grid {
+          display: grid;
+          grid-template-rows: 1fr;
+          align-items: start;
+          justify-items: stretch;
+          grid-template-columns: 1fr 1fr;
+	        grid-column-gap: 20px;	
+        }
+      }
+    </style>
+    <iron-ajax auto
+      url="../data/profile.json"
+      last-response="{{profile}}">
+    </iron-ajax>
+    <div class="centered grid">
+      <div>
+        <article>
+          <h1>[[profile.name]]</h1>
+          <div class="grid">
+            <lrnapp-studio-dashboard-profile class="section" profile$="[[profile]]"></lrnapp-studio-dashboard-profile>
+            <div>
+              <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
+              <lrnapp-studio-dashboard-feedback-wanted class="section"></lrnapp-studio-dashboard-feedback-wanted>
+            </div>
+          </div>
+        </article>
+        <article>
+          <h1>Recent Work</h1>
+          <div class="grid">
+            <div>
+              <!--TODO: Submissions and Comments-->
+              <lrnapp-studio-dashboard-submissions class="section"></lrnapp-studio-dashboard-submissions>
+              <lrnapp-studio-dashboard-comments class="section"></lrnapp-studio-dashboard-comments>
+            </div>
+            <div>
+              <!--TODO: Discussions and Feedback-->
+              <lrnapp-studio-dashboard-discussions class="section"></lrnapp-studio-dashboard-discussions>
+              <lrnapp-studio-dashboard-feedback class="section"></lrnapp-studio-dashboard-feedback>
+            </div>
+          </div>
+        </article>
+      </div>
+      <article>
+        <h1>Activity Feed</h1>
+        <!--TODO: Last 24 Hours, Last 7 Days, All Activity-->
+        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
+        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
+        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
+        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
+        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
+        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
+      </article>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lrnapp-studio-dashboard',
+      properties: {
+        profile: {
+          type: Object,
+          value: null
+        },
+      },
+      /**
+       * Simple way to convert from object to array.
+       */
+      _toArray: function(obj) {
+        return Object.keys(obj).map(function(key) {
+          return obj[key];
+        });
+      },
+    });
+  </script>
+</dom-module>

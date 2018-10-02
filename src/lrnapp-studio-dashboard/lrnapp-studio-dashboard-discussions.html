@@ -1,0 +1,75 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/progress-donut/progress-donut.html">
+<link rel="import" href="../../bower_components/simple-colors/simple-colors.html">
+<link rel="import" href="lrnapp-studio-dashboard-styles.html">
+<link rel="import" href="lrnapp-studio-dashboard-link.html">
+
+<!--
+`lrnapp-studio-dashboard-discussions`
+A LRN polymer app
+
+@demo ../../demo/index.html
+
+@microcopy - the mental model for this app
+ -
+ -
+ -
+
+-->
+
+<dom-module id="lrnapp-studio-dashboard-discussions">
+  <template>
+    <style include="lrnapp-studio-dashboard-styles"></style>
+    <iron-ajax auto
+      url="../data/recent-submissions.json"
+      last-response="{{discussions}}">
+    </iron-ajax>
+    <accent-card accent-color="purple" heading="Discussions">
+      <div slot="content">
+        <template is="dom-repeat" items="[[_toArray(discussions.data)]]" as="discussion">
+          <lrnapp-studio-dashboard-link link$="" title$="[[discussion.attributes.title]]">
+            <div id="detail">[[discussion.meta.humandate]]</div>
+          </lrnapp-studio-dashboard-link>
+        </template>
+      </div>
+      <div slot="footer">
+        <p id="viewall"><a href="#TODO">View all discussions</a></p>
+      </div>
+    </accent-card>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lrnapp-studio-dashboard-discussions',
+      properties: {
+        discussions: {
+          type: Object,
+          value: null
+        },
+      },
+      /**
+       * Simple way to convert from object to array.
+       * /
+      ready: function() {
+        let check = setInterval(function(){ 
+          console.log(this.complete); 
+          if(confirm('Clear interval?')) clearInterval(check);
+        },500);
+        check();
+      },
+      /**
+       * Simple way to convert from object to array.
+       */
+      _toArray: function(obj) {
+        console.log(obj);
+        if(obj !== undefined && obj !== null){
+          console.log(Object.keys(obj).map(function(key) { return obj[key] }) );
+          return Object.keys(obj).map(function(key) {
+            return obj[key];
+          });   
+        }
+      },
+    });
+  </script>
+</dom-module>

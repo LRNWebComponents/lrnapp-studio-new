@@ -4,12 +4,20 @@
   "license": "Apache-2.0",
   "main": "lrnapp-studio-new.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.10.1"
+    "polymer": "Polymer/polymer#^1.10.1",
+    "progress-donut": "LRNWebComponents/progress-donut#^0.0.1",
+    "editable-table": "LRNWebComponents/editable-table#^1.0.0",
+    "simple-colors": "LRNWebComponents/simple-colors#^1.0.5",
+    "accent-card": "LRNWebComponents/accent-card",
+    "iron-icons": "PolymerElements/iron-icons#^3.0.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "resolutions": {
+    "iron-icons": "^2.1.1"
   }
 }

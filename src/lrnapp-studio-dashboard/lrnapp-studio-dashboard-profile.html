@@ -1,0 +1,129 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/simple-colors/simple-colors.html">
+<link rel="import" href="../../bower_components/progress-donut/progress-donut.html">
+<link rel="import" href="../../bower_components/accent-card/accent-card.html">
+
+<!--
+`lrnapp-studio-dashboard-profile`
+A LRN polymer app
+
+@demo ../../demo/index.html
+
+@microcopy - the mental model for this app
+ -
+ -
+ -
+
+-->
+
+<dom-module id="lrnapp-studio-dashboard-profile">
+  <template>
+    <style>
+      :host {
+        width: 100%;
+        display: block;
+      }
+      :host accent-card {
+        width: 100%;
+      }
+      :host .progress-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        width: 100%;
+        color: var(--lrnapp-studio-dashboard-color, #666);
+        border-top: var(--lrnapp-studio-dashboard-border, #ddd);
+        padding: 0.5em 0;
+      }
+      :host .progress-item span:last-child {
+        text-align: right;
+      }
+    </style>
+    <accent-card no-border heading$="[[profile.display_name]]">
+      <div slot="content">
+        <progress-donut id="donut"
+          title="Your Progress"
+          desc$="[[desc]]"
+          image-src$="[[profile.avatar]]" 
+          complete$="[[complete]]" 
+          total$="[[profile.totalAssignments]]">
+        </progress-donut>
+        <div class="progress-item"><span>Overall Progress</span><span>[[percentComplete]]</span></div>
+        <div class="progress-item"><span>Comments</span><span>[[profile.totalComments]]</span></div>
+        <div class="progress-item"><span>Submissions</span><span>[[profile.totalSubmissions]]</span></div>
+      </div>
+    </accent-card>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lrnapp-studio-dashboard-profile',
+      properties: {
+        profile: {
+          type: Object,
+          value: null
+        },
+        desc: {
+          type: String,
+          computed: '_getProgressDesc(profile)'
+        },
+        complete: {
+          type: String,
+          computed: '_getProgressComplete(profile)'
+        },
+        percentComplete: {
+          type: String,
+          computed: '_getPercentComplete(profile)'
+        },
+        chart: {
+          type: String,
+          computed: '_getProfileChart(complete)'
+        }
+      },
+      /**
+       * Simple way to convert from object to array.
+       * /
+      ready: function() {
+        let check = setInterval(function(){ 
+          console.log(this.complete); 
+          if(confirm('Clear interval?')) clearInterval(check);
+        },500);
+        check();
+      },
+      /**
+       * Simple way to convert from object to array.
+       */
+      _getProgressDesc: function(profile) {
+         return profile !== null ? 'You have completed '+profile.completedAssignments+' assignments out of '+profile.totalAssignments+'.': '';
+      },
+      /**
+       * Simple way to convert from object to array.
+       */
+      _getProfileChart: function(complete) {
+         console.log('_getProfileChart',this.$.dount);
+         this.$.donut.makeChart();
+         return true;
+      },
+      /**
+       * Simple way to convert from object to array.
+       */
+      _getPercentComplete: function(profile) {
+        return profile !== null ? Math.round(100*profile.completedAssignments/profile.totalAssignments) + '%' : '0%';
+      },
+      /**
+       * Simple way to convert from object to array.
+       */
+      _getProgressComplete: function(profile) {
+        let temp = [];
+        if (profile !== null){
+          for(let i=0;i<profile.completedAssignments;i++){
+            temp.push(1);
+          }
+        }
+        console.log('_getProgressComplete',temp);
+        return temp;
+      },
+    });
+  </script>
+</dom-module>

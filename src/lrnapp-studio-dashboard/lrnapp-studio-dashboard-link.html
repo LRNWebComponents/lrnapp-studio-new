@@ -1,0 +1,90 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<!--
+`lrnapp-studio-dashboard-link`
+A LRN polymer app
+
+@demo ../../demo/index.html
+
+@microcopy - the mental model for this app
+ -
+ -
+ -
+
+-->
+
+<dom-module id="lrnapp-studio-dashboard-link">
+  <template>
+    <style>
+      :host {
+        font-weight: 100;
+      }
+      :host #link {
+        color: var(--lrnapp-studio-dashboard-color, #666);
+        text-decoration: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      :host #link:focus,
+      :host #link:hover {
+        color: var(--lrnapp-studio-dashboard-focus-color, #000);
+        cursor: pointer;
+      }
+      :host #avatar {
+        border-radius: 50%;
+      }
+      :host #title {
+        margin: 10px 0 0;
+        font-size: 100%;
+        font-weight: 600;
+      }
+      :host #link:focus #title,
+      :host #link:hover #title {
+        text-decoration: underline;
+      }
+      :host iron-icon {
+        min-width: 2.25em;
+      }
+    </style>
+    <a id="link" href$="[[link]]">
+      <template is="dom-if" if$="[[hasAvatar]]">
+        <img id="avatar" src$="[[avatar]]" aria-hidden="true">
+      </template>
+      <div>
+        <h2 id="title">[[title]]</h2>
+        <slot></slot>
+      </div>
+      <iron-icon icon="chevron-right"></iron-icon>
+    </a>
+    
+  </template>
+  <script>
+    Polymer({
+      is: 'lrnapp-studio-dashboard-link',
+      properties: {
+        link: {
+          type: String,
+          value: null
+        },
+        title: {
+          type: String,
+          value: null
+        },
+        avatar: {
+          type: String,
+          value: null
+        },
+        hasAvatar: {
+          type: Boolean,
+          computed: '_hasAttr(avatar)'
+        },
+      },
+      _hasAttr: function(avatar){
+        return avatar !== null;
+      }
+    });
+  </script>
+</dom-module>
