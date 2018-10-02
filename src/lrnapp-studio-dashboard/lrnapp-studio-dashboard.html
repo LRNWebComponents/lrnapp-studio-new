@@ -6,6 +6,8 @@
 <link rel="import" href="lrnapp-studio-dashboard-comments.html">
 <link rel="import" href="lrnapp-studio-dashboard-discussions.html">
 <link rel="import" href="lrnapp-studio-dashboard-feedback.html">
+<link rel="import" href="lrnapp-studio-dashboard-recent-activity.html">
+<link rel="import" href="lrnapp-studio-dashboard-all-activity.html">
 
 <!--
 `lrnapp-studio-dashboard`
@@ -101,7 +103,7 @@ A LRN polymer app
     <div class="centered grid">
       <div>
         <article>
-          <h1>[[profile.name]]</h1>
+          <h1>[[profile.display_name]]</h1>
           <div class="grid">
             <lrnapp-studio-dashboard-profile class="section" profile$="[[profile]]"></lrnapp-studio-dashboard-profile>
             <div>
@@ -129,12 +131,8 @@ A LRN polymer app
       <article>
         <h1>Activity Feed</h1>
         <!--TODO: Last 24 Hours, Last 7 Days, All Activity-->
-        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
-        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
-        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
-        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
-        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
-        <lrnapp-studio-dashboard-due class="section"></lrnapp-studio-dashboard-due>
+        <lrnapp-studio-dashboard-recent-activity class="section"></lrnapp-studio-dashboard-recent-activity>
+        <lrnapp-studio-dashboard-all-activity class="section"></lrnapp-studio-dashboard-all-activity>
       </article>
     </div>
   </template>
